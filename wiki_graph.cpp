@@ -79,6 +79,7 @@ std::string  WikiGraph::get_title(int32_t id)
 
 int32_t  WikiGraph::get_page_size(int32_t id)
 {
-    //FIXIT
+    if(id < 0 || id > n_pages) return 0;
+    return sizes[id];
     return 0;
 };
