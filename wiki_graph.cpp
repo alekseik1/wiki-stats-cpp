@@ -10,8 +10,7 @@ WikiGraph::~WikiGraph(){
     }
 }
 
-void  WikiGraph::load_from_stream(std::istream &file)
-{
+void  WikiGraph::load_from_stream(std::istream &file) {
     file >> n_pages >> n_links;
 
     titles = new std::string [n_pages];
@@ -39,22 +38,26 @@ void  WikiGraph::load_from_stream(std::istream &file)
     std::cout << utf16_to_utf8(L"Граф загружен") << std::endl;
 }
 
-int32_t  WikiGraph::get_number_of_links_from(int32_t id)
-{
+int32_t  WikiGraph::get_number_of_links_from(int32_t id) {
     if(id < n_pages && id >= 0) {
         return offset[id+1]-offset[id];
     }
     return 0;
 };
 
+// Возвращает указатель на начало массива с найденными links, о как!
 int32_t*  WikiGraph::get_links_from(int32_t id)
 {
-    //FIXIT
-    return links;
+    if(id < 0 || id > n_pages) return NULL;
+    int delta = offset[id+1] - offset[id];
+    int32_t* res = new int[delta];
+    for(int i = 0; i < delta; i++) {
+        res[i] = links[i+offset[id]];
+    }
+    return res;
 };
 
-int32_t  WikiGraph::get_id(std::string title)
-{
+int32_t  WikiGraph::get_id(std::string title) {
     for(int i = 0; i < n_pages; i++) {
         if(titles[i] == title) return i;
     }
@@ -67,20 +70,17 @@ int32_t  WikiGraph::get_number_of_pages()
     return 0;
 };
 
-bool  WikiGraph::is_redirect(int32_t id)
-{
+bool  WikiGraph::is_redirect(int32_t id) {
     if(id < 0 || id > n_pages) return false;
     return redirect[id];
 };
 
-std::string  WikiGraph::get_title(int32_t id)
-{
+std::string  WikiGraph::get_title(int32_t id) {
     if(id < 0 || id > n_pages) return "";
     return titles[id];
 };
 
-int32_t  WikiGraph::get_page_size(int32_t id)
-{
+int32_t  WikiGraph::get_page_size(int32_t id) {
     if(id < 0 || id > n_pages) return 0;
     return sizes[id];
     return 0;
