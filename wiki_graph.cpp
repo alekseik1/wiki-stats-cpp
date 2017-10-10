@@ -19,17 +19,21 @@ void  WikiGraph::load_from_stream(std::istream &file)
     links = new int32_t [n_links];
     redirect = new bool [n_pages];
     offset = new int32_t [n_pages + 1];
+    offset[0] = 0;
 
     int tmp_redir = 0;
-
+    int j = 0;
     for(int i = 0; i < n_pages; i++) {
         file >> titles[i]
              >> sizes[i]
              >> redirect[i]
              >> tmp_redir;
-
-        for(int j = 0; j < tmp_redir; j++) {
-            file >> links[i+j];
+        std::cout << tmp_redir << " ";
+        offset[i+1] = offset[i] + tmp_redir;
+        tmp_redir += j;
+        while(j < tmp_redir) {
+            file >> links[j];
+            j++;
         }
     }
 
