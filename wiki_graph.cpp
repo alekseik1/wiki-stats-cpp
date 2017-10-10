@@ -55,8 +55,10 @@ int32_t*  WikiGraph::get_links_from(int32_t id)
 
 int32_t  WikiGraph::get_id(std::string title)
 {
-    //FIXIT
-    return 0;
+    for(int i = 0; i < n_pages; i++) {
+        if(titles[i] == title) return i;
+    }
+    return -1;
 };
 
 int32_t  WikiGraph::get_number_of_pages()
