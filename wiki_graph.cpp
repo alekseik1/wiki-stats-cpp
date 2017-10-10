@@ -46,8 +46,7 @@ int32_t  WikiGraph::get_number_of_links_from(int32_t id) {
 };
 
 // Возвращает указатель на начало массива с найденными links, о как!
-int32_t*  WikiGraph::get_links_from(int32_t id)
-{
+int32_t*  WikiGraph::get_links_from(int32_t id) {
     if(id < 0 || id > n_pages) return NULL;
     int delta = offset[id+1] - offset[id];
     int32_t* res = new int[delta];
@@ -64,10 +63,8 @@ int32_t  WikiGraph::get_id(std::string title) {
     return -1;
 };
 
-int32_t  WikiGraph::get_number_of_pages()
-{
-    //FIXIT
-    return 0;
+int32_t  WikiGraph::get_number_of_pages() {
+    return n_pages;
 };
 
 bool  WikiGraph::is_redirect(int32_t id) {
