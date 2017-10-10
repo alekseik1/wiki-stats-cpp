@@ -28,7 +28,6 @@ void  WikiGraph::load_from_stream(std::istream &file)
              >> sizes[i]
              >> redirect[i]
              >> tmp_redir;
-        std::cout << tmp_redir << " ";
         offset[i+1] = offset[i] + tmp_redir;
         tmp_redir += j;
         while(j < tmp_redir) {
@@ -42,7 +41,9 @@ void  WikiGraph::load_from_stream(std::istream &file)
 
 int32_t  WikiGraph::get_number_of_links_from(int32_t id)
 {
-    //FIXIT
+    if(id < n_pages && id >= 0) {
+        return offset[id+1]-offset[id];
+    }
     return 0;
 };
 

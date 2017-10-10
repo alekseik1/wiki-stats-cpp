@@ -17,6 +17,7 @@ int main(int argc, char* argv[]){
         std::cout << utf16_to_utf8(L"Загружаю граф из файла: ") << argv[1] << std::endl;;
         wg.load_from_stream(file);
         file.close();
+        std::cout << wg.get_number_of_links_from(0);
     }
     else
     {
