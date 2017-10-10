@@ -67,8 +67,8 @@ int32_t  WikiGraph::get_number_of_pages()
 
 bool  WikiGraph::is_redirect(int32_t id)
 {
-    //FIXIT
-    return true;
+    if(id < 0 || id > n_pages) return false;
+    return redirect[id];
 };
 
 std::string  WikiGraph::get_title(int32_t id)
